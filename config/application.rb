@@ -1,6 +1,18 @@
 require File.expand_path('../boot', __FILE__)
 
-require 'rails/all'
+require 'rails'
+
+%w(
+    neo4j
+    action_controller
+    action_mailer
+    sprockets
+).each do |framework|
+  begin
+    require "#{framework}/railtie"
+  rescue LoadError
+  end
+end
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -19,8 +31,11 @@ module TripFinder
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+    #
+    config.eager_load = true
 
-    # Do not swallow errors in after_commit/after_rollback callbacks.
-    config.active_record.raise_in_transactional_callbacks = true
+    config.neo4j.session_type = :server_db
+    config.neo4j.session_path = ENV['GRAPHENEDB_URL'] || 'http://localhost:7474'
+    config.neo4j.session_options = { basic_auth: { username: 'neo4j', password: 'admin' } }
   end
 end

@@ -1,6 +1,11 @@
-class State < ActiveRecord::Base
+class State
+  include Neo4j::ActiveNode
 
-  has_many :cities
+  property :abbreviation, index: :exact
+
+  validates :abbreviation, presence: true
+
+  has_many :in, :cities, origin: :cities
 
   def self.list
     [

@@ -1,8 +1,12 @@
 ### Getting Started
 
+## Prerequisites
+
+- ruby(2) / rails(4)
+- neo4j
+
+## Start server
 ```
 bundle install
-rake db:create
-rake db:migrate
-rake db:seed
+rails s
 ```

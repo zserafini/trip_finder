@@ -1,3 +1,6 @@
-class City < ActiveRecord::Base
-  belongs_to :state
+class City
+  include Neo4j::ActiveNode
+
+  property :name
+  has_one :out, :state, type: :state
 end

@@ -6,5 +6,5 @@ gem 'jquery-rails'
 gem 'neo4j', github: 'andreasronge/neo4j'
 
 group :development, :test do
-  gem 'byebug'
+  gem 'pry'
 end
